@@ -90,8 +90,9 @@ public class Sort {
     }
 
     private static void process(Path file) {
-        try (Stream<String> lines = Files.lines(file).map(line -> Boolean.TRUE.equals(capitalize) ? WordUtils.capitalize(line) : line)
-                .map(StringUtils::trim).distinct()) {
+        try (Stream<String> lines = Files.lines(file)
+                .map(line -> Boolean.TRUE.equals(capitalize) ? WordUtils.capitalize(line) : line).map(StringUtils::trim)
+                .distinct()) {
             List<String> collect = lines.collect(Collectors.toList());
             Collections.sort(collect, String.CASE_INSENSITIVE_ORDER);
             Files.write(file, collect, StandardOpenOption.TRUNCATE_EXISTING);
